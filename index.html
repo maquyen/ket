@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quỳnh Như 💖</title>
+    <style>
+      body {
+        margin: 0;
+        background: linear-gradient(to bottom right, #d48eaa, #ffc0cb);
+        overflow: hidden;
+        height: 100vh;
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .heart-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        animation: pulse 1.1s infinite;
+        z-index: 2;
+      }
+
+      .heart {
+        width: 200px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        background: #ff6ab5;
+      }
+
+      .heart::before,
+      .heart::after {
+        content: "";
+        width: 200px;
+        height: 200px;
+        background: #ff69b4;
+        border-radius: 60%;
+        position: absolute;
+      }
+
+      .heart::before {
+        top: -89px;
+        left: 0;
+      }
+
+      .heart::after {
+        left: 89px;
+        top: 0;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      input[type="text"] {
+        position: absolute;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 6px 1px;
+        border-radius: 990px;
+        border: none;
+        font-size: 30px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 3;
+      }
+
+      .floating-heart {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        background: pink;
+        transform: rotate(-45deg);
+        opacity: 0.9;
+        z-index: 0;
+      }
+
+      .floating-heart::before,
+      .floating-heart::after {
+        content: "";
+        width: 25px;
+        height: 25px;
+        background: pink;
+        border-radius: 110%;
+        position: absolute;
+      }
+
+      .floating-heart::before {
+        top: -10px;
+        left: 0;
+      }
+
+      .floating-heart::after {
+        left: 10px;
+        top: 0;
+      }
+
+      @keyframes fly {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--x), var(--y)) scale(0.5);
+          opacity: 0;
+        }
+      }
+
+      /* Hiệu ứng chữ lung tung */
+      .floating-word {
+        position: fixed;
+        font-size: 15px;
+        font-weight: bold;
+        color: #d6008f;
+        opacity: 1;
+        animation: fadeout 3s ease-in-out forwards;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      @keyframes fadeout {
+        0% {
+          opacity: 1;
+          transform: translateY(0px) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-50px) scale(1.2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heart-container">
+      <div class="heart"></div>
+      <input type="text" value="Quỳnh Như" />
+    </div>
+
+    <script>
+      // Tạo floating hearts
+      function createFloatingHeart() {
+        const heart = document.createElement("div");
+        heart.className = "floating-heart";
+
+        const size = Math.random() * 20 + 10;
+        heart.style.width = size + "px";
+        heart.style.height = size + "px";
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        heart.style.top = Math.random() * window.innerHeight + "px";
+
+        const x = (Math.random() - 0.5) * 200 + "px";
+        const y = (Math.random() - 1) * 300 + "px";
+
+        heart.style.setProperty("--x", x);
+        heart.style.setProperty("--y", y);
+
+        const duration = Math.random() * 5 + 3;
+        heart.style.animation = `fly ${duration}s ease-in-out forwards`;
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+      }
+
+      // Tạo chữ lung tung
+      const words = [
+        "Như",
+        "Như xinh gái",
+        "💖",
+        "cute",
+        "Cute",
+        "Đáng yêu",
+        "Chăm chỉ",
+        "✨",
+      ];
+      function createFloatingWord() {
+        const word = document.createElement("div");
+        word.className = "floating-word";
+        word.textContent = words[Math.floor(Math.random() * words.length)];
+
+        word.style.left = Math.random() * window.innerWidth + "px";
+        word.style.top = Math.random() * window.innerHeight + "px";
+
+        document.body.appendChild(word);
+
+        setTimeout(() => word.remove(), 3000);
+      }
+
+      // Gọi liên tục
+      setInterval(createFloatingHeart, 200);
+      setInterval(createFloatingWord, 500);
+    </script>
+  </body>
+</html>
